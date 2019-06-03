@@ -7,7 +7,7 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building...'
-        docker build registry + ":7"
+        docker.build registry + ":7"
       }
     }
     stage('Test') {
