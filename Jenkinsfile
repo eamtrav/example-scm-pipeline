@@ -1,9 +1,13 @@
 pipeline {
-  agent { dockerfile true }
+  agent any
+  environment {
+    registry = "localhost:5000"
+  }
   stages {
     stage('Build') {
       steps {
         echo 'Building...'
+        docker build registry + ":7"
       }
     }
     stage('Test') {
@@ -14,7 +18,6 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'Deploying...'
-        sh 'docker tag centos:7 localhost:5000/centos:7'
       }
     }
   }
