@@ -5,7 +5,7 @@ pipeline {
     dockerImage = ''
   }
   stages {
-    stage('Build') {
+    stage('Build ') {
       steps {
         echo 'Building...'
         script {
@@ -17,7 +17,7 @@ pipeline {
       steps {
         echo 'Deploying...'
         script {
-          docker.withRegistry('localhost') { 
+          docker.withRegistry('http://localhost:5000', '') { 
             dockerImage.push()
           }
         }
