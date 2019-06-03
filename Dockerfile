@@ -10,6 +10,6 @@ LABEL org.label-schema.schema-version="1.0" \
 
 RUN yum -y update &&\
   yum clean all &&\
-  yum autoremove
+  yum -y autoremove
 
 CMD ["/bin/bash"]
