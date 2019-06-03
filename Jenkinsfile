@@ -1,13 +1,15 @@
 pipeline {
   agent any
   environment {
-    registry = "localhost:5000"
+    registry = "localhost:5000/centos"
   }
   stages {
     stage('Build') {
       steps {
         echo 'Building...'
-        docker.build registry + ":7"
+        script {
+          docker.build registry + ":7"
+        }
       }
     }
     stage('Test') {
