@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    registry = "localhost:5000/centos"
+    registry = "centos"
   }
   stages {
     stage('Build') {
@@ -16,7 +16,9 @@ pipeline {
       steps {
         echo 'Deploying...'
         script {
-          dockerImage.push()
+          docker.withRegistry('localhost') { 
+            dockerImage.push()
+          }
         }
       }
     }
