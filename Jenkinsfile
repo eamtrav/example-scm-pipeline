@@ -8,18 +8,16 @@ pipeline {
       steps {
         echo 'Building...'
         script {
-          docker.build registry + ":7"
+          docker Image = docker.build registry + ":7"
         }
-      }
-    }
-    stage('Test') {
-      steps {
-        echo 'Testing...'
       }
     }
     stage('Deploy') {
       steps {
         echo 'Deploying...'
+        script {
+          dockerImage.push()
+        }
       }
     }
   }
