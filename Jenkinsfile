@@ -8,7 +8,7 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh 'node --version'
+        echo 'Testing...'
       }
     }
     stage('Deploy') {
