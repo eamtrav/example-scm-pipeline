@@ -5,22 +5,28 @@ pipeline {
     dockerImage = ''
   }
   stages {
-    stage('Build ') {
+    stage('Build Image') {
       steps {
-        echo 'Building...'
+        echo 'Building Image...'
         script {
           dockerImage = docker.build registry + ":7"
         }
       }
     }
-    stage('Deploy') {
+    stage('Deploy Image') {
       steps {
-        echo 'Deploying...'
+        echo 'Deploying Image...'
         script {
           docker.withRegistry('http://localhost:5000', '') { 
             dockerImage.push()
           }
         }
+      }
+    }
+    stage('Delete Image') {
+      steps {
+        echo 'Deleting Image...'
+        sh "docker rmi $registry:7"
       }
     }
   }
