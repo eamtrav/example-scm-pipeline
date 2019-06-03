@@ -2,13 +2,14 @@ pipeline {
   agent any
   environment {
     registry = "centos"
+    dockerImage = ''
   }
   stages {
     stage('Build') {
       steps {
         echo 'Building...'
         script {
-          docker Image = docker.build registry + ":7"
+          dockerImage = docker.build registry + ":7"
         }
       }
     }
