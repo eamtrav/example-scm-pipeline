@@ -15,6 +15,7 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'Deploying...'
+        sh 'docker tag centos:7 localhost:5000/centos:7'
       }
     }
   }
