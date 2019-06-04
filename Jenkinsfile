@@ -1,5 +1,9 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      args '--label date=$(date %Y%m%d)'
+    }
+  }
   environment {
     registry = "centos"
     dockerImage = ''
