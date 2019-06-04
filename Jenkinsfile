@@ -10,7 +10,7 @@ pipeline {
         sh 'date'
         echo 'Building Image...'
         script {
-          dockerImage = docker.build("${registry}:7", "--label date=\$(date +%Y%m%d) .")
+          dockerImage = docker.build("${registry}:7", "--label org.label-schema.build-date=\$(date +%Y%m%d) .")
         }
       }
     }
@@ -27,7 +27,6 @@ pipeline {
     stage('Delete Image') {
       steps {
         echo 'Deleting Image...'
-        sh "docker rmi ${registry}:7"
       }
     }
   }
