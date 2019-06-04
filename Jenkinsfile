@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    registry = "centos"
+    registry = "mybuild"
     dockerImage = ''
   }
   stages {
@@ -10,7 +10,7 @@ pipeline {
         sh 'date'
         echo 'Building Image...'
         script {
-          dockerImage = docker.build("mybuild", "--label date=\$(date +%Y%m%d) .")
+          dockerImage = docker.build("${registry}:7", "--label date=\$(date +%Y%m%d) .")
         }
       }
     }
@@ -18,7 +18,7 @@ pipeline {
       steps {
         echo 'Deploying Image...'
         script {
-          docker.withRegistry('http://localhost:5000', '') { 
+          docker.withRegistry('http://localhost:5000', '${registry}') { 
             dockerImage.push()
           }
         }
@@ -27,7 +27,7 @@ pipeline {
     stage('Delete Image') {
       steps {
         echo 'Deleting Image...'
-        sh "docker rmi mybuild"
+        sh "docker rmi ${registry}:7"
       }
     }
   }
