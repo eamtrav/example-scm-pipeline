@@ -10,7 +10,7 @@ pipeline {
         sh 'date'
         echo 'Building Image...'
         script {
-          dockerImage = docker.build("mybuild", "--label date=\$(date +%Y%m%d)")
+          dockerImage = docker.build("mybuild", "--label date=\$(date +%Y%m%d) .")
         }
       }
     }
