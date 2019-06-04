@@ -1,9 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      args '--label date=$(date %Y%m%d)'
-    }
-  }
+  agent any
   environment {
     registry = "centos"
     dockerImage = ''
@@ -14,7 +10,7 @@ pipeline {
         sh 'date'
         echo 'Building Image...'
         script {
-          dockerImage = docker.build registry + ":7"
+          dockerImage = docker.build("mybuild", "--label date=$(date +%Y%m%d)")
         }
       }
     }
@@ -31,7 +27,7 @@ pipeline {
     stage('Delete Image') {
       steps {
         echo 'Deleting Image...'
-        sh "docker rmi $registry:7"
+        sh "docker rmi mybuild"
       }
     }
   }
