@@ -7,6 +7,7 @@ pipeline {
   stages {
     stage('Build Image') {
       steps {
+        sh 'date'
         echo 'Building Image...'
         script {
           dockerImage = docker.build registry + ":7"
