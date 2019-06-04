@@ -18,7 +18,7 @@ pipeline {
       steps {
         echo 'Deploying Image...'
         script {
-          docker.withRegistry('http://localhost:5000', '${registry}') { 
+          docker.withRegistry('http://localhost:5000', '') { 
             dockerImage.push()
           }
         }
