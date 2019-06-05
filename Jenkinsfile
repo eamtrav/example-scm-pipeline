@@ -5,16 +5,17 @@ pipeline {
     registry = "localhost:5000"
     buildName = 'centos'
     buildTag = ':7'
-    buildLabel = '--label org.label-schema.build-date=\$(date +%Y%m%d) .'
-    dockerImage = ''
+    buildLabel = '--label org.label-schema.build-date=`date +%Y%m%d)` .'
   }
   stages {
     stage('Build Image') {
       steps {
-        script {
-          docker.withRegistry("${protocol}${registry}", '') { 
-            dockerImage = docker.build("${buildName}${buildTag}", "${buildLabel}")
-            dockerImage.push()
+        timestamps {
+          script {
+            docker.withRegistry("${protocol}${registry}", '') { 
+              def dockerImage = docker.build("${buildName}${buildTag}", "${buildLabel}")
+              dockerImage.push()
+            }
           }
         }
       }
