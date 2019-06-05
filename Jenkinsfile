@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent { master }
   environment {
     protocol = 'http://'
     registry = "localhost:5000"
@@ -7,9 +7,8 @@ pipeline {
     buildTag = ':7'
     buildLabel = '--label org.label-schema.build-date=`date +%Y%m%d` .'
   }
-  triggers {
-    cron('H/15 * * * *')
-  }
+  triggers { cron('H/15 * * * *') }
+  options { timeout(time: 15, unit: 'MINUTES') }
   stages {
     stage('Build Image') {
       steps {
