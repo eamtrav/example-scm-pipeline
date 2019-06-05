@@ -5,7 +5,10 @@ pipeline {
     registry = "localhost:5000"
     buildName = 'centos'
     buildTag = ':7'
-    buildLabel = '--label org.label-schema.build-date=`date +%Y%m%d)` .'
+    buildLabel = '--label org.label-schema.build-date=`date +%Y%m%d` .'
+  }
+  triggers {
+    cron('H/15 * * * *')
   }
   stages {
     stage('Build Image') {
