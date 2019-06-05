@@ -12,7 +12,7 @@ pipeline {
     stage('Build Image') {
       steps {
         script {
-          docker.withRegistry(${protocol}${registry}, '') { 
+          docker.withRegistry("${protocol}${registry}", '') { 
             dockerImage = docker.build(${buildName}${buildTag}, ${buildLabel})
             dockerImage.push()
           }
