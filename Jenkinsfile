@@ -4,7 +4,7 @@ pipeline {
     protocol = 'http://'
     registry = "localhost:5000"
     buildName = 'centos'
-    builddTag = ':7'
+    buildTag = ':7'
     buildLabel = '--label org.label-schema.build-date=\$(date +%Y%m%d) .'
     dockerImage = ''
   }
