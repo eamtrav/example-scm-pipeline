@@ -1,5 +1,5 @@
 pipeline {
-  agent { master }
+  agent { 'master' }
   environment {
     protocol = 'http://'
     registry = "localhost:5000"
