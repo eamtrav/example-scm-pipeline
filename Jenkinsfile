@@ -1,32 +1,28 @@
 pipeline {
   agent any
   environment {
-    registry = "mybuild"
+    protocol = 'http://'
+    registry = "localhost:5000"
+    buildName = 'centos'
+    builddTag = ':7'
+    buildLabel = '--label org.label-schema.build-date=\$(date +%Y%m%d) .'
     dockerImage = ''
   }
   stages {
     stage('Build Image') {
       steps {
-        sh 'date'
-        echo 'Building Image...'
         script {
-          dockerImage = docker.build("${registry}:7", "--label org.label-schema.build-date=\$(date +%Y%m%d) .")
-        }
-      }
-    }
-    stage('Deploy Image') {
-      steps {
-        echo 'Deploying Image...'
-        script {
-          docker.withRegistry('http://localhost:5000', '') { 
+          docker.withRegistry(${protocol}${registry}, '') { 
+            dockerImage = docker.build(${buildName}${buildTag}, ${buildLabel})
             dockerImage.push()
           }
         }
       }
     }
-    stage('Delete Image') {
+    stage('Cleanup') {
       steps {
-        echo 'Deleting Image...'
+        echo 'cleaning up...'
+        sh 'docker rmi ${registry}/${buildName}${buildTag}'
       }
     }
   }
